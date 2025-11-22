@@ -2,5 +2,5 @@
   "PublicDirectoryPath": "connection",
   "Domain": "localhost",
   "Port": "8080",
-  "ConnectionString": "Host=localhost;Port=5432;Database=Tours;Username=postgres;Password=aboba"
+  "ConnectionString": "Host=postgres;Port=5432;Database=Tours;Username=postgres;Password=aboba"
 }
