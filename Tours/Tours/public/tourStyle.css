@@ -1,0 +1,227 @@
+﻿@font-face {
+    font-family: 'HelveticaLight';
+    src: url(/fonts/Helvetica/helvetica_light.otf)
+}
+
+@font-face {
+    font-family: 'HelveticaRegular';
+    src: url(/fonts/Helvetica/helvetica_regular.otf);
+}
+
+@font-face {
+    font-family: 'OpenSansRegular';
+    src: url(/fonts/Open_Sans/static/OpenSans-Regular.ttf)
+}
+
+@font-face {
+    font-family: 'OpenSansBold';
+    src: url(/fonts/Open_Sans/static/OpenSans-Bold.ttf)
+}
+
+@font-face {
+    font-family: 'OpenSansMedium';
+    src: url(/fonts/Open_Sans/static/OpenSans-Medium.ttf)
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+}
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+/* Links */
+
+a, a:link, a:visited {
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+
+body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 50px;
+    font-family: HelveticaRegular;
+}
+
+.mainContentTour {
+    width: 940px;
+    box-shadow: 0 0 20px #000;
+    border-radius: 5px;
+}
+
+.cardInfoBlock {
+    background-color: #4faddc;
+    padding: 20px;
+}
+
+.cardInfoTitle {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+}
+
+.cardInfoTitle__Title {
+    margin-top: 5px;
+}
+
+.cardInfoTitile__CityCountry {
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+.cardInfoContent {
+    background-color: #fff;
+    border-radius: 5px;
+    margin-top: 30px;
+    display: flex;
+}
+
+.cardInfoLeftBlock {
+    flex: 1;
+}
+
+.cardInfoOptions {
+    padding: 20px;
+    display: flex;
+}
+
+.cardInfoOption__Right {
+    width: 38%;
+}
+
+.cardInfoOption__Left {
+    width: calc(62% - 10px);
+    margin-left: 10px;
+}
+
+.cardInfoRightBlock {
+    flex: 0 1 296px;
+    padding: 16px 24px;
+    background-color: #edf2f5;
+}
+
+.Icon img {
+    width: 32px;
+    height: 32px;
+}
+
+.InfoOption {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.Info {
+    margin-left: 10px;
+}
+
+.Option__Right__To, .Option__Right__Date, .Option__Right__Title, .Option__Left__Tourists {
+    font-weight: 700;
+    color: #333;
+}
+
+.Option__Right__From, .Option__Right__Night, .Option__Right__Nutrition {
+    color: #777;
+    font-size: 0.8em;
+}
+
+.cardActionPrice {
+    display: flex;
+    align-items: center;
+}
+
+.actionPrice__Value {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.actionPrice__PerRoom {
+    font-size: 0.6em;
+    margin-left: 15px;
+    color: #5c6672;
+}
+
+.cardBody {
+    padding: 30px 25px 45px;
+}
+
+.cardBody__Gallery {
+    display: flex;
+    margin-top: 24px;
+}
+
+.Gallery__LeftBLock {
+    height: 392px;
+    width: 570px;
+    margin-right: 24px;
+}
+
+    .Gallery__LeftBLock img {
+        width: 100%;
+        height: 100%;
+        border-radius: 5px;
+    }
+
+.Gallery__RightBLock {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-content: flex-start;
+    gap: 10px;
+}
+
+.wrapperImages {
+    max-width: 92px;
+    max-height: 60px;
+    border: 1px solid #00a3be;
+}
+
+    .wrapperImages img {
+        width: 100%;
+        height: 100%;
+    }
+
+
+.DetailDesscription__GeneralInfo {
+    padding: 15px 0 15px 200px;
+    position: relative;
+    color: #5c6672;
+    font-size: 0.9em;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+    .DetailDesscription__GeneralInfo::before {
+        content: "Общая информация";
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 30px;
+        width: auto;
+        border-bottom: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+.GeneralInfo span {
+    color: #333;
+    font-weight: bold;
+}

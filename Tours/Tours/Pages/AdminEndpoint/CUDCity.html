@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление городами</title>
+</head>
+<body>
+    <h1>Управление городами</h1>
+
+    <!-- Форма для создания нового города -->
+    <div>
+        <h2>Добавить новый город</h2>
+        <form id="createForm">
+            <label for="cityName">Название города:</label>
+            <input type="text" id="cityName" name="name" required maxlength="100">
+
+            <label for="countryId">Страна:</label>
+            <select id="countryId" name="countryId" required>
+                <option value="">Выберите страну</option>
+                <!-- Опции будут загружены через JavaScript -->
+            </select>
+
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+
+    <!-- Форма для редактирования города -->
+    <div>
+        <h2>Редактировать город</h2>
+        <form id="editForm">
+            <label for="editId">ID города:</label>
+            <input type="number" id="editId" name="id" required>
+
+            <label for="editName">Новое название:</label>
+            <input type="text" id="editName" name="name" required maxlength="100">
+
+            <label for="editCountryId">Страна:</label>
+            <select id="editCountryId" name="countryId" required>
+                <option value="">Выберите страну</option>
+                <!-- Опции будут загружены через JavaScript -->
+            </select>
+
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
+
+    <!-- Форма для удаления города -->
+    <div>
+        <h2>Удалить город</h2>
+        <form id="deleteForm">
+            <label for="deleteId">ID города для удаления:</label>
+            <input type="number" id="deleteId" name="id" required>
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+
+    <!-- Список городов -->
+    <div>
+        <h2>Список городов</h2>
+        <table id="citiesTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>ID страны</th>
+                    <th>Название страны</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="citiesTableBody">
+                <!-- Данные будут загружаться здесь -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/CUDs/scripts/CUDCity.js"></script>
+</body>
+</html>

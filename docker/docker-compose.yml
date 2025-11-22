@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: myapp-postgres
+    environment:
+      POSTGRES_DB: Tours
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: aboba
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - myapp-network
+
+  # Если нужно запускать консольные приложения
+  project1-console:
+    build:
+      context: ..
+      dockerfile: dockerfile.Tours
+    container_name: project1-app
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=Tours;Username=postgres;Password=aboba
+    depends_on:
+      - postgres
+    networks:
+      - myapp-network
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
+
+networks:
+  myapp-network:
+    driver: bridge

@@ -1,0 +1,30 @@
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+# Копируем solution файл и восстанавливаем зависимости
+COPY ["Tours/Tours.sln", "."]
+COPY ["Tours/Framework/MiniHttpServer.Framework.csproj", "Framework/"]
+COPY ["Tours/MiniTemplateEngine/MiniTemplateEngine.csproj", "MiniTemplateEngine/"]
+COPY ["Tours/MyORMLibrary/MyORMLibrary.csproj", "MyORMLibrary/"]
+COPY ["Tours/Tours/Tours.csproj", "Tours/"]
+
+RUN dotnet restore "Tours.sln" --verbosity detailed
+
+# Копируем весь код и собираем
+COPY Tours/ .
+RUN dotnet build "Tours.sln" -c Release
+
+# Публикуем конкретное консольное приложение
+FROM build AS publish
+RUN dotnet publish "Tours/Tours.csproj" -c Release -o /app/publish --no-restore
+
+# Финальный образ
+FROM mcr.microsoft.com/dotnet/runtime:9.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+# Открываем порт
+EXPOSE 8080
+
+# Запускаем приложение
+ENTRYPOINT ["dotnet", "Tours.dll"]

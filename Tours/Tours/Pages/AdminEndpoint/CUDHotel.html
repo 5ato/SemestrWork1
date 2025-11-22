@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление отелями</title>
+</head>
+<body>
+    <h1>Управление отелями</h1>
+
+    <!-- Форма для создания отеля -->
+    <div>
+        <h2>Добавить отель</h2>
+        <form id="createForm">
+            <label for="name">Название отеля:</label>
+            <input type="text" id="name" name="name" required maxlength="100">
+
+            <label for="roomDescription">Описание номеров:</label>
+            <textarea id="roomDescription" name="roomDescription" rows="4"></textarea>
+
+            <label for="foundedYear">Год основания:</label>
+            <input type="number" id="foundedYear" name="foundedYear" min="1800" max="2030">
+
+            <label for="nutritionId">Тип питания:</label>
+            <select id="nutritionId" name="nutritionId" required>
+                <option value="">Выберите тип питания</option>
+            </select>
+
+            <label for="locationDescription">Описание местоположения:</label>
+            <input type="text" id="locationDescription" name="locationDescription" maxlength="200">
+
+            <label for="address">Адрес:</label>
+            <input type="text" id="address" name="address" maxlength="200">
+
+            <label for="countStars">Количество звезд:</label>
+            <input type="number" id="countStars" name="countStars" min="1" max="5">
+
+            <label for="cityId">Город:</label>
+            <select id="cityId" name="cityId" required>
+                <option value="">Выберите город</option>
+            </select>
+
+            <label for="hotelTypeId">Тип отеля:</label>
+            <select id="hotelTypeId" name="hotelTypeId" required>
+                <option value="">Выберите тип отеля</option>
+            </select>
+
+            <label for="description">Описание отеля:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+
+            <button type="submit">Создать отель</button>
+        </form>
+    </div>
+
+    <!-- Форма для редактирования отеля -->
+    <div>
+        <h2>Редактировать отель</h2>
+        <form id="editForm">
+            <label for="editId">ID отеля:</label>
+            <input type="number" id="editId" name="id" required>
+
+            <label for="editName">Название отеля:</label>
+            <input type="text" id="editName" name="name" required maxlength="100">
+
+            <label for="editRoomDescription">Описание номеров:</label>
+            <textarea id="editRoomDescription" name="roomDescription" rows="4"></textarea>
+
+            <label for="editFoundedYear">Год основания:</label>
+            <input type="number" id="editFoundedYear" name="foundedYear" min="1800" max="2030">
+
+            <label for="editNutritionId">Тип питания:</label>
+            <select id="editNutritionId" name="nutritionId" required>
+                <option value="">Выберите тип питания</option>
+            </select>
+
+            <label for="editLocationDescription">Описание местоположения:</label>
+            <input type="text" id="editLocationDescription" name="locationDescription" maxlength="200">
+
+            <label for="editAddress">Адрес:</label>
+            <input type="text" id="editAddress" name="address" maxlength="200">
+
+            <label for="editCountStars">Количество звезд:</label>
+            <input type="number" id="editCountStars" name="countStars" min="1" max="5">
+
+            <label for="editCityId">Город:</label>
+            <select id="editCityId" name="cityId" required>
+                <option value="">Выберите город</option>
+            </select>
+
+            <label for="editHotelTypeId">Тип отеля:</label>
+            <select id="editHotelTypeId" name="hotelTypeId" required>
+                <option value="">Выберите тип отеля</option>
+            </select>
+
+            <label for="editDescription">Описание отеля:</label>
+            <textarea id="editDescription" name="description" rows="4"></textarea>
+
+            <button type="submit">Обновить отель</button>
+        </form>
+    </div>
+
+    <!-- Форма для удаления отеля -->
+    <div>
+        <h2>Удалить отель</h2>
+        <form id="deleteForm">
+            <label for="deleteId">ID отеля для удаления:</label>
+            <input type="number" id="deleteId" name="id" required>
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+
+    <!-- Список отелей -->
+    <div>
+        <h2>Список отелей</h2>
+        <table id="hotelsTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Год основания</th>
+                    <th>Тип питания</th>
+                    <th>Адрес</th>
+                    <th>Звезды</th>
+                    <th>Город</th>
+                    <th>Тип отеля</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="hotelsTableBody">
+                <!-- Данные будут загружаться здесь -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/CUDs/scripts/CUDHotel.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>Поиск туров онлайн, подбор тура с вылетом из Самары, Москвы, Ульяновска</title>
+    <meta name="description" content="С помощью нашей системы поиска туров Вы самостоятельно можете подобрать для себя и своих близких оптимальный по всем параметрам отдых с вылетом из Самары, Москвы, Ульяновска, Казани, Уфы, Оренбурга.>" />
+    <meta name="keywords" content="поиск тура подбор туров самара" />
+    <meta name="robots" content="index,follow" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/tourStyle.css" type="text/css" />
+</head>
+<body>
+    <div class="mainContentTour">
+        <div class="cardInfoBlock">
+            <div class="cardInfoTitle">
+                <div class="cardInfoTitle__Rating">Рейтинг: ${Tour.CountStars}</div>
+                <h2 class="cardInfoTitle__Title">${Tour.HotelName}</h2>
+                <div class="cardInfoTitile__CityCountry">${Tour.CountryName}, ${Tour.CityName}</div>
+            </div>
+            <div class="cardInfoContent">
+                <div class="cardInfoLeftBlock">
+                    <div class="cardInfoOptions">
+                        <div class="cardInfoOption__Right">
+                            <div class="cardInfoOption__Right__FromTo InfoOption">
+                                <div class="FromTo__Icon Icon">
+                                    <img src="/images/gps.png"/>
+                                </div>
+                                <div class="FromTo__Info Info">
+                                    <div class="Option__Right__To">${Tour.CountryName}</div>
+                                    <div class="Option__Right__From">Откуда: ${Tour.RussiaCityName}</div>
+                                </div>
+                            </div>
+                            <div class="cardInfoOption__Right__DateNight InfoOption">
+                                <div class="DateNight__Icon Icon">
+                                    <img src="/images/calendar.png"/>
+                                </div>
+                                <div class="DateNight__Info Info">
+                                    <div class="Option__Right__Date">${Tour.DepartureDate}</div>
+                                    <div class="Option__Right__Night">${Tour.CountNight} ночей</div>
+                                </div>
+                            </div>
+                            <div class="cardInfoOption__Right__Nutrition InfoOption">
+                                <div class="Nutrition__Icon Icon">
+                                    <img src="/images/food.png"/>
+                                </div>
+                                <div class="Nutrition__Info Info">
+                                    <div class="Option__Right__Title">Питание</div>
+                                    <div class="Option__Right__Nutrition">${Tour.NutritionName}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cardInfoOption__Left">
+                            <div class="cardInfoOption__Left__Tourists InfoOption">
+                                <div class="Tourists__Icon Icon">
+                                    <img src="/images/bed.png"/>
+                                </div>
+                                <div class="Tourists__Info Info">
+                                    <div class="Option__Left__Tourists">${Tour.AdultCount} взр. ${Tour.ChildCount} дет.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="cardInfoRightBlock">
+                    <div class="cardActionControl">
+                        <div class="cardActionPrice">
+                            <div class="actionPrice__Value">
+                                ${Tour.Price}
+                            </div>
+                            <div class="actionPrice__PerRoom">
+                                РУБ
+                                <br/>
+                                ЗА НОМЕР
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cardDetailBlock">
+            <div class="cardBody">
+                <p class="cardBody__Description">${Tour.Description}</p>
+                <div class="cardBody__Gallery">
+                    <div class="Gallery__LeftBLock">
+                        <img src="${Photo.ImagePath}"/>
+                    </div>
+                    <div class="Gallery__RightBLock">
+                        $foreach (var item in Photos)
+                        <div class="wrapperImages">
+                            <img src="${item.ImagePath}" />
+                        </div>
+                        <div class="wrapperImages">
+                            <img src="${item.ImagePath}" />
+                        </div>
+                        <div class="wrapperImages">
+                            <img src="${item.ImagePath}" />
+                        </div>
+                        $endfor
+                    </div>
+                </div>
+                <hr />
+                <div class="cardBody__DetailDescription">
+                    <div class="DetailDesscription__GeneralInfo">
+                        <div class="GeneralInfo GeneralInfo__RoomDescription">
+                            ${Tour.RoomDescription}
+                        </div>
+                        <div class="GeneralInfo GeneralInfo__FoundedYear">
+                            <span>Основан: </span>
+                            ${Tour.FoundedYear}
+                        </div>
+                        <div class="GeneralInfo GeneralInfo__LocationDescription">
+                            <span>Расположен: </span>
+                            ${Tour.LocationDescription}
+                        </div>
+                        <div class="GeneralInfo GeneralInfo__AddressDescription">
+                            <span>Адрес: </span>
+                            ${Tour.Address}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="utf-8">
+	<title>Поиск туров онлайн, подбор тура с вылетом из Самары, Москвы, Ульяновска</title>
+	<meta name="description" content="С помощью нашей системы поиска туров Вы самостоятельно можете подобрать для себя и своих близких оптимальный по всем параметрам отдых с вылетом из Самары, Москвы, Ульяновска, Казани, Уфы, Оренбурга.>" />
+	<meta name="keywords" content="поиск тура подбор туров самара" />
+	<meta name="robots" content="index,follow" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="/styles.css" type="text/css" />
+</head>
+<body>
+    <header class="header">
+        <div class="header__otherLinks">
+            <div class="otherLinks__other">
+                <a>Агентствам</a>
+                <a>Корпоративным клиентам</a>
+                <a>Туристам</a>
+                <a>Вопрос-ответ</a>
+                <a>Блог</a>
+                <a>Новости</a>
+            </div>
+            <div class="otherLinks__about">
+                <a>О КОМПАНИИ</a>
+            </div>
+        </div>
+        <div class="header__topPhone">
+            <div class="topPhone__logo">
+                <img src="/images/logo32.png" />
+            </div>
+            <div class="topPhone__saleonline">
+                <img src="/images/saleonline.png" />
+            </div>
+            <div class="topPhone__contact">
+                <span class="contact__icon">
+                    <img src="/images/phone-orange.png" />
+                </span>
+                <a>+7 (846) 300-45-00</a>
+                <a>+7 (800) 600-40-61</a>
+            </div>
+            <a class="serachToursButton">ПОИСК ТУРА</a>
+        </div>
+        <nav class="header__navbar">
+            <div class="nav">
+                <a class="nav-item">Международные туры</a>
+                <a class="nav-item">Туры по России</a>
+                <a class="nav-item">Самара</a>
+                <a class="nav-item">Туры в рассрочку</a>
+            </div>
+            <div class="nav__premium">
+                <span class="star">★</span>
+                <a class="whereBuy">Где купить</a>
+            </div>
+        </nav>
+    </header>
+    <section class="page">
+        <article id="page-content" class="page__content">
+            <h1>Поиск туров</h1>
+            <div class="form__serach">
+                <div class="serachWithFlight">
+                    <div class="serachWithFlight__listFilter">
+
+                        <div id="fromCity" class="filter fromCity">
+                            <p class="filter__type">
+                                <span>✈</span>
+                                ГОРОДА ВЫЛЕТА
+                            </p>
+                            <select required id="fromCityValue" class="filter__value">
+                                <option selected disabled value="">-- Выберете город --</option>
+                            </select>
+                        </div>
+
+                        <div id="toCity" class="filter toCity">
+                            <p class="filter__type">
+                                <span>📍</span>
+                                СТРАНЫ
+                            </p>
+                            <p id="toCityValue" class="filter__value">----</p>
+                        </div>
+
+                        <div id="dateFlight" class="filter dateFlight">
+                            <p class="filter__type">
+                                <span>📅</span>
+                                ДАТА ВЫЛЕТА
+                            </p>
+                            <p id="dateFlightValue" class="filter__value">-----</p>
+                        </div>
+
+                        <div id="night" class="filter night">
+                            <p class="filter__type">
+                                <span>🕐</span>
+                                НОЧЕЙ
+                            </p>
+                            <p id="nightsValue" class="filter__value">6-14</p>
+                        </div>
+
+                        <div id="tourists" class="filter tourists">
+                            <p class="filter__type">
+                                <span>👤</span>
+                                ТУРИСТЫ
+                            </p>
+                            <p id="touristsValue" class="filter__value">2 взрослых</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="searchHotel">
+                    <div class="searchHotel__inputs">
+                        <div class="inputsHotel HotelRating">
+                            <p>Количество звёзд</p>
+                            <input id="countStars" type="number" name="CountStars" placeholder="Количество звёзд" value="1" min="1" max="5" />
+                        </div>
+                        <div id="HotelType" class="inputsHotel HotelType">
+                            <p>Тип Отеля</p>
+                        </div>
+                        <div id="HotelNutrition" class="inputsHotel HotelNutrition">
+                            <p>Питание</p>
+                        </div>
+                        <div id="HotelServices" class="inputsHotel HotelServices">
+                            <p>Услуги отеля</p>
+                        </div>
+                    </div>
+                    <div class="searchHotel__button">
+                        <button id="confimSearch" class="confirmSearch">Найти туры</button>
+                    </div>
+                    <p id="searchHotelErrorRussiaCity" class="searchHotel__Errors__RussiaCity">Выберите Город!</p>
+                    <p id="searchHotelErrorToCountry" class="searchHotel__Errors__ToCountry">Выберите Хотя бы одну страну!</p>
+                    <p id="searchHotelErrorHotelType" class="searchHotel__Errors__HotelType">Выберите Хотя бы один тип отеля!</p>
+                </div>
+            </div>
+        </article>
+        <p class="space"></p>
+        <p class="informationAlert">*Обратите внимание! По некоторым странам, не входящим в список направлений массового туризма, стоимость тура указана с учетом перелета регулярным рейсом по минимальному тарифу экономического класса и требует обязательной актуализации цены именно под ваши даты. В связи с этим стоимость туров с перелетом регулярными рейсами не является окончательной.</p>
+        <hr />
+        <h2 class="lastMinutTours">Горящие туры</h2>
+        <section class="hotToursList">
+            $foreach (var item in HotTours)
+                <div class="hotToursItem">
+                    <div class="hotToursItem__image">
+                        <a href="/TourEndpoint?TourId=${item.Id}"><img src="${item.ImagePath}" /></a>
+                    </div>
+                    <p class="hotToursItem__rating">Рейтинг: ${item.CountStars}/5</p>
+                    <h4 class="hotToursItem__Name"><a href="/TourEndpoint?TourId=${item.Id}">${item.HotelName}</a></h4>
+                    <p class="hotToursItem__cityCountry">${item.CityName}, ${item.CountryName}</p>
+                    <p class="hotToursItem__night">${item.DepartureDate}, ${item.CountNight} ночей</p>
+                    <p class="hotToursItem__russiaCity">Откуда: ${item.RussiaCityName}</p>
+                    <div class="hotToursItem__price">${item.Price}руб</div>
+                </div>
+            $endfor 
+        </section>
+    </section>
+
+
+    <nav class="sitemap">
+        <div class="sitemap__row">
+            <div class="sitemap__row__column">
+                <h3>Самарская область</h3>
+                <ul>
+                    <li><a>Акции! Скидки!</a></li>
+                    <li><a>Турбазы</a></li>
+                    <li><a>Санатории</a></li>
+                    <li><a>Гостиницы</a></li>
+                    <li><a>Экскурсии</a></li>
+                    <li><a>Для школьников</a></li>
+                    <li><a>Транспорт</a></li>
+                    <li><a>ТК Шираево</a></li>
+                    <li><a>Активный отдых</a></li>
+                    <li><a>Речные круизы</a></li>
+                    <li><a>Детские лагеря</a></li>
+                    <li><a>Горнолыжные туры</a></li>
+                    <li><a>Волжская «Ривьера»</a></li>
+                </ul>
+            </div>
+            <div class="sitemap__row__column">
+                <h3>Россия</h3>
+                <ul>
+                    <li><a>Турбазы</a></li>
+                    <li><a>Гостиницы</a></li>
+                    <li><a>Санатории</a></li>
+                    <li><a>Золотое кольцо</a></li>
+                    <li><a>Речные круизы</a></li>
+                    <li><a>Санкт-Петербург</a></li>
+                    <li><a>Горнолыжные туры</a></li>
+                    <li><a>Событийные туры</a></li>
+                    <li><a>Отдых на море</a></li>
+                    <li><a>Детский отдых</a></li>
+                    <li><a>Активный отдых</a></li>
+                    <li><a>Туры выходного дня</a></li>
+                    <li><a>Новогодние туры</a></li>
+                    <li><a>Путешествие на турпоезде</a></li>
+                    <li><a>Автобусные туры</a></li>
+                </ul>
+            </div>
+            <div class="sitemap__row__column">
+                <h3>Международные туры</h3>
+                <ul>
+                    <li><a>Абхазия</a></li>
+                    <li><a>Вьетнам</a></li>
+                    <li><a>Египет</a></li>
+                    <li><a>Китай</a></li>
+                    <li><a>Куба</a></li>
+                    <li><a>Мальдивы</a></li>
+                    <li><a>ОАЭ</a></li>
+                    <li><a>Таиланд</a></li>
+                    <li><a>Тунис</a></li>
+                    <li><a>Турция</a></li>
+                    <li><a>Шри-Ланка</a></li>
+                </ul>
+            </div>
+            <div class="sitemap__row__column">
+                <h3>Виды отдыха</h3>
+                <ul>
+                    <li><a>Новогодние туры 2026</a></li>
+                    <li><a>Автобусные туры</a></li>
+                    <li><a>Активный отдых</a></li>
+                    <li><a>Гастрономические туры</a></li>
+                    <li><a>Горнолыжные туры</a></li>
+                    <li><a>Гостиницы</a></li>
+                    <li><a>Детский отдых</a></li>
+                    <li><a>Речные круизы</a></li>
+                    <li><a>Лечение</a></li>
+                    <li><a>Обучение за рубежом</a></li>
+                    <li><a>Отдых на море</a></li>
+                    <li><a>Морские круизы</a></li>
+                    <li><a>Путешествие на турпоезде</a></li>
+                    <li><a>Свадебные туры</a></li>
+                    <li><a>Сити-туры</a></li>
+                    <li><a>Событийные туры</a></li>
+                    <li><a>Турбазы</a></li>
+                    <li><a>Туры выходного дня</a></li>
+                    <li><a>Туры для школьников</a></li>
+                    <li><a>Экскурсии</a></li>
+                    <li><a>Экскурсионные туры</a></li>
+                    <li><a>Экспедиционные круизы</a></li>
+                    <li><a>Клиники</a></li>
+                    <li><a>Карточные туры</a></li>
+                </ul>
+            </div>
+            <div class="sitemap__row__column">
+                <h3>Услуги</h3>
+                <ul>
+                    <li><a>Бронирование отелей</a></li>
+                    <li><a>Трансфер</a></li>
+                    <li><a>Оформление виз</a></li>
+                    <li><a>Страхование</a></li>
+                    <li><a>Бизнес-залы в а/порту</a></li>
+                    <li><a>Подарочный сертификат</a></li>
+                </ul>
+            </div>
+            <div class="sitemap__row__column">
+                <h3>Событийные туры</h3>
+                <ul>
+                    <li><a>Событийные туры в РФ</a></li>
+                    <li><a>Туры на концерты, чемпионаты</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <footer class="footer">
+        <section class="mainFooter">
+            <div class="mainFooter__row">
+                <div class="mainFooter__row__column aboutCompany">
+                    <h3>О компании</h3>
+                    <p>Самараинтур является одним из лидеров на самарском туристическом рынке. Мы предлагаем нашим клиентам и партнерам качественный туристический продукт — путешествия по России и всему миру. Качество и надежность мы можем гарантировать, поскольку имеем за плечами более чем 30-летний опыт работы, прямые долгосрочные и отработанные контакты с ведущими международными и российскими туроператорами и перевозчиками, а также непосредственно с отелями. Ну, и, конечно, высокопрофессиональный коллектив.</p>
+                </div>
+                <div class="mainFooter__row__column reviewsClients">
+                    <h3>Отзывы клиентов</h3>
+                    <acticle class="boxTestimonial">
+                        <blockquote>
+                            <a>
+                                Уже около 9 лет подряд бронируем отдых в данном турагентстве и себе и родителям. Нареканий никаких ни разу не было,
+                                Замечательная девушка - Кристина всегда нам помогает. с Кристиной все четко, оперативно, так, как и просили. Настоящий профессионал своего дела. Очень рекомендую!
+                            </a>
+                        </blockquote>
+                        <p class="clientIcon">Ирина Д.</p>
+                        <div class="allReviews">
+                            <a href="/recall">Все отзывы</a> &nbsp; | &nbsp; <a href="/recall-form">Добавить отзыв</a>
+                        </div>
+                    </acticle>
+                </div>
+                <div class="mainFooter__row__column news">
+                    <h3>Новости</h3>
+                    <ul>
+                        <li><a href="/21430">Большой Египетский музей открыт - 13 лет ожидания позади</a></li>
+                        <li><a href="/21429">Китай вводит онлайн-карты прибытия для туристов</a></li>
+                        <li><a href="/21428">Россияне смогут заселяться в отели по правам или загранпаспорту</a></li>
+                        <li><a href="/21427">Рифы под защитой в Таиланде</a></li>
+                    </ul>
+                    <p>
+                        <a href="/news">Все новости</a>
+                    </p>
+                </div>
+                <div class="mainFooter__row__column contacts">
+                    <h3>Контакты</h3>
+                    <a href="tel:+78463004500" class="phone">+7 (846) 300-45-00</a>
+                    <a href="tel:88006004061" class="phone">+7 (800) 600-40-61</a>
+                    <address>
+                        <p>
+                            443020, РФ, Самарская обл., г. Самара,<br>
+                            ул. Самарская, д.51 - центральный офис<br>
+                            <a href="mailto:order@samaraintour.ru">✉ order@samaraintour.ru</a>
+                        </p>
+                        <div><a href="/wherebuy">Наши офисы</a></div>
+                    </address>
+                    <ul class="socialNetworks">
+                        <li>
+                            <a href="http://vk.com/club32955592" class="tips" title="Группа Самараинтур ВКонтакте">
+                                <img src="/images/vk.png"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://t.me/samaraintour" class="tips" title="Самараинтур в Telegram">
+                                <img src="/images/telegram.png" />
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://invite.viber.com/?g2=AQBs8R27yK6Pr0mIHC2p12tzikcTfb0hqmaDg6hY%2FCvil30jnLGKvnntWPuVH96y" class="tips" title="Самараинтур в Viber">
+                                <img src="/images/viber.png" />
+                            </a>
+                        </li>
+                    </ul>
+                    <div>
+                        <a href="https://samaraintour.ru/chatbot" title="Удобный чат-бот для подбора туров"><img src="/images/chatbot2.png" alt="Удобный чат-бот для подбора туров"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="footerRights"></section>
+    </footer>
+
+    <script src="/scripts/calendar.js"></script>
+    <script src="/scripts/cityFromDropMenu.js"></script>
+    <script src="/scripts/cityToDropMenu.js"></script>
+    <script src="/scripts/nightDropMenu.js"></script>
+    <script src="/scripts/touristsDropMenu.js"></script>
+    <script src="/scripts/hotelServicesDropMenu.js"></script>
+    <script src="/scripts/hotelTypeDropMenu.js"></script>
+    <script src="/scripts/nutritionDropMenu.js"></script>
+    <script src="/scripts/createToursItem.js"></script>
+    <script>
+        const button = document.getElementById('confimSearch');
+        const errorRussiaCity = document.getElementById('searchHotelErrorRussiaCity');
+        const errorToCountry = document.getElementById('searchHotelErrorToCountry');
+        const errorHotelType = document.getElementById('searchHotelErrorHotelType');
+        button.addEventListener('click', async () => {
+            if (cityId == undefined) {
+                errorRussiaCity.classList.add('displayError');
+                return;
+            }
+
+            if (cityDropdown == undefined) {
+                errorToCountry.classList.add('displayError');
+                return;
+            }
+
+            let countriesList = cityDropdown.getSelectedCities();
+            console.log(countriesList);
+            if (countriesList.length == 0) {
+                errorToCountry.classList.add('displayError');
+                return;
+            }
+
+            if (calendar == undefined) {
+                return;
+            }
+
+            if (nightsSelector == undefined) {
+                return;
+            }
+
+            if (touristsSelector == undefined) {
+                return;
+            }
+
+            if (hotelTypes == undefined) {
+                return;
+            }
+
+            let selectedHotelType = getSelectedHotelTypes()
+            if (selectedHotelType.length == 0) {
+                errorHotelType.classList.add('displayError');
+                return;
+            }
+
+            
+            let selectedDate = calendar.getSelectedPeriod();
+            let selectedNight = nightsSelector.getSelectedNights();
+            let selectedTourists = touristsSelector.getValues();
+            let selectedCountStars = document.getElementById('countStars').value;
+            console.log(selectedNutrition);
+            let selectedServices = getSelectedServices();
+            console.log(selectedServices);
+
+            var filters = {
+                StartDate: selectedDate.startDate,
+                EndDate: selectedDate.endDate,
+                CityId: Number(cityId),
+                SelectedCountries: countriesList,
+                StartNight: selectedNight.startNight,
+                EndNight: selectedNight.endNight,
+                CountAdults: selectedTourists.adults,
+                CountChildren: selectedTourists.children,
+                CountStars: Number(selectedCountStars),
+                SelectedTypes: selectedHotelType,
+                SelectedNutritions: selectedNutrition.Id,
+                Services: selectedServices,
+            };
+
+            let data = await fetch("/ListTours/GetList", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(filters),
+            }).then(response => response.json());
+
+            console.log(data);
+            let toursList = document.getElementById('TourList');
+            let notFoundTours = document.getElementById('ToursNotFound');
+            const pageContent = document.getElementById('page-content');
+            if (data.length > 0) {
+                if (notFoundTours != null) {
+                    notFoundTours.remove();
+                }
+                if (toursList != null) {
+                    toursList.remove();
+                }
+                toursList = document.createElement('div');
+                toursList.classList.add('ToursFiltered__List');
+                toursList.id = 'TourList';
+
+                data.forEach(t => createTourItem(t, toursList));
+                pageContent.insertAdjacentElement('afterend', toursList);
+            } else {
+                if (toursList != null) {
+                    toursList.remove();
+                }
+                if (notFoundTours == null) {
+                    notFoundTours = `<div id="ToursNotFound" class="ToursFiltered__NotFound">
+                                        <div class="NotFound__Message">
+                                            По Вашему запросу подходящих вариантов не найдено. 
+                                            <br> 
+                                            Попробуйте изменить условия поиска.
+                                        </div>
+                                    </div>`;
+                    pageContent.insertAdjacentHTML('afterend', notFoundTours);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

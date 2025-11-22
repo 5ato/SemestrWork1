@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Услуги отеля</title>
+    <style>
+        .HotelServices {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: #f9f9f9;
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-width: 250px;
+            max-height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+            .dropdown-menu.show {
+                display: block;
+            }
+
+        .service-group {
+            border-bottom: 1px solid #eee;
+        }
+
+        .group-header {
+            padding: 10px 15px;
+            background: #f5f5f5;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .group-content {
+            padding: 0 15px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+            .group-content.expanded {
+                max-height: 500px;
+            }
+
+        .service-item {
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+            .service-item input {
+                margin-right: 8px;
+            }
+
+            .service-item label {
+                cursor: pointer;
+                margin: 0;
+            }
+
+        .arrow {
+            transition: transform 0.3s ease;
+        }
+
+            .arrow.expanded {
+                transform: rotate(180deg);
+            }
+    </style>
+</head>
+<body>
+    <div id="HotelServices" class="HotelServices">
+        <p>Услуги отеля</p>
+    </div>
+
+    <script>
+        // Массив с данными о группах услуг
+        const hotelServices = [
+            {
+                group: "Пляж",
+                services: [
+                    { id: "beach1", name: "Шезлонги" },
+                    { id: "beach2", name: "Зонтики" },
+                    { id: "beach3", name: "Пляжные полотенца" },
+                    { id: "beach4", name: "Душ на пляже" }
+                ]
+            },
+            {
+                group: "Территория",
+                services: [
+                    { id: "territory1", name: "Бассейн" },
+                    { id: "territory2", name: "SPA-зона" },
+                    { id: "territory3", name: "Фитнес-центр" },
+                    { id: "territory4", name: "Сауна" },
+                    { id: "territory5", name: "Парковка" }
+                ]
+            },
+            {
+                group: "Платные услуги",
+                services: [
+                    { id: "paid1", name: "Экскурсии" },
+                    { id: "paid2", name: "Прачечная" },
+                    { id: "paid3", name: "Трансфер" },
+                    { id: "paid4", name: "Аренда авто" }
+                ]
+            },
+            {
+                group: "Бесплатные услуги",
+                services: [
+                    { id: "free1", name: "Wi-Fi" },
+                    { id: "free2", name: "Завтрак" },
+                    { id: "free3", name: "Сейф" },
+                    { id: "free4", name: "Багажная комната" }
+                ]
+            }
+        ];
+
+        // Объект для хранения выбранных услуг
+        let selectedServices = {};
+
+        // Функция для создания выпадающего меню
+        function createDropdownMenu() {
+            const dropdown = document.createElement('div');
+            dropdown.className = 'dropdown-menu';
+            dropdown.id = 'servicesDropdown';
+
+            hotelServices.forEach(groupData => {
+                // Создаем группу
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'service-group';
+
+                // Заголовок группы
+                const header = document.createElement('div');
+                header.className = 'group-header';
+
+                const headerText = document.createElement('span');
+                headerText.textContent = groupData.group;
+
+                const arrow = document.createElement('span');
+                arrow.className = 'arrow';
+                arrow.textContent = '▼';
+
+                header.appendChild(headerText);
+                header.appendChild(arrow);
+
+                // Контент группы
+                const content = document.createElement('div');
+                content.className = 'group-content';
+
+                groupData.services.forEach(service => {
+                    const serviceItem = document.createElement('div');
+                    serviceItem.className = 'service-item';
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = service.id;
+                    checkbox.value = service.id;
+
+                    checkbox.addEventListener('change', function () {
+                        if (this.checked) {
+                            selectedServices[service.id] = service.name;
+                        } else {
+                            delete selectedServices[service.id];
+                        }
+                        console.log('Выбранные услуги:', selectedServices);
+                    });
+
+                    const label = document.createElement('label');
+                    label.htmlFor = service.id;
+                    label.textContent = service.name;
+
+                    serviceItem.appendChild(checkbox);
+                    serviceItem.appendChild(label);
+                    content.appendChild(serviceItem);
+                });
+
+                // Обработчик клика по заголовку группы
+                header.addEventListener('click', function () {
+                    content.classList.toggle('expanded');
+                    arrow.classList.toggle('expanded');
+                });
+
+                groupDiv.appendChild(header);
+                groupDiv.appendChild(content);
+                dropdown.appendChild(groupDiv);
+            });
+
+            return dropdown;
+        }
+
+        // Функция для инициализации меню
+        function initHotelServicesMenu() {
+            const hotelServicesElement = document.getElementById('HotelServices');
+            const dropdown = createDropdownMenu();
+
+            // Добавляем меню в DOM
+            hotelServicesElement.appendChild(dropdown);
+
+            // Обработчик клика по блоку услуг
+            hotelServicesElement.addEventListener('click', function (event) {
+                if (event.target.closest('.HotelServices p')) {
+                    dropdown.classList.toggle('show');
+                }
+            });
+
+            // Закрытие меню при клике вне его
+            document.addEventListener('click', function (event) {
+                if (!event.target.closest('.HotelServices')) {
+                    dropdown.classList.remove('show');
+
+                    // Закрываем все раскрытые группы
+                    const expandedGroups = dropdown.querySelectorAll('.group-content.expanded');
+                    const expandedArrows = dropdown.querySelectorAll('.arrow.expanded');
+
+                    expandedGroups.forEach(group => group.classList.remove('expanded'));
+                    expandedArrows.forEach(arrow => arrow.classList.remove('expanded'));
+                }
+            });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', initHotelServicesMenu);
+
+        // Функция для обновления данных с сервера (пример)
+        function updateServicesFromServer(newServices) {
+            // Здесь будет код для получения данных с сервера
+            // Например:
+            // fetch('/api/hotel-services')
+            //     .then(response => response.json())
+            //     .then(data => {
+            //         hotelServices = data;
+            //         // Пересоздаем меню с новыми данными
+            //         const oldDropdown = document.getElementById('servicesDropdown');
+            //         if (oldDropdown) {
+            //             oldDropdown.remove();
+            //         }
+            //         initHotelServicesMenu();
+            //     });
+        }
+
+        // Функция для получения выбранных услуг
+        function getSelectedServices() {
+            return selectedServices;
+        }
+
+        // Функция для сброса выбранных услуг
+        function resetSelectedServices() {
+            selectedServices = {};
+            const checkboxes = document.querySelectorAll('#servicesDropdown input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+    </script>
+</body>
+</html>

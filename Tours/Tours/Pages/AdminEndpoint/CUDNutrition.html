@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление питанием</title>
+</head>
+<body>
+    <h1>Управление питанием</h1>
+
+    <!-- Форма для создания нового питания -->
+    <div>
+        <h2>Добавить новое питание</h2>
+        <form id="createForm">
+            <label for="nutritionName">Название питания:</label>
+            <input type="text" id="nutritionName" name="name" required maxlength="100">
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+
+    <!-- Форма для редактирования питания -->
+    <div>
+        <h2>Редактировать питание</h2>
+        <form id="editForm">
+            <label for="editId">ID питания:</label>
+            <input type="number" id="editId" name="id" required>
+
+            <label for="editName">Новое название:</label>
+            <input type="text" id="editName" name="name" required maxlength="100">
+
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
+
+    <!-- Форма для удаления питания -->
+    <div>
+        <h2>Удалить питание</h2>
+        <form id="deleteForm">
+            <label for="deleteId">ID питания для удаления:</label>
+            <input type="number" id="deleteId" name="id" required>
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+
+    <!-- Список питаний -->
+    <div>
+        <h2>Список питаний</h2>
+        <table id="nutritionsTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="nutritionsTableBody">
+                <!-- Данные будут загружаться здесь -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/CUDs/scripts/CUDNutrition.js"></script>
+</body>
+</html>

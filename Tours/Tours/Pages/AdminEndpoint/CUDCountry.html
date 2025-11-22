@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление странами</title>
+</head>
+<body>
+    <h1>Управление странами</h1>
+
+    <!-- Форма для создания новой страны -->
+    <div>
+        <h2>Добавить новую страну</h2>
+        <form id="createForm">
+            <label for="countryName">Название страны:</label>
+            <input type="text" id="countryName" name="name" required maxlength="100">
+            <button type="submit">Создать</button>
+        </form>
+    </div>
+
+    <!-- Форма для редактирования страны -->
+    <div>
+        <h2>Редактировать страну</h2>
+        <form id="editForm">
+            <label for="editId">ID страны:</label>
+            <input type="number" id="editId" name="id" required>
+
+            <label for="editName">Новое название:</label>
+            <input type="text" id="editName" name="name" required maxlength="100">
+
+            <button type="submit">Обновить</button>
+        </form>
+    </div>
+
+    <!-- Форма для удаления страны -->
+    <div>
+        <h2>Удалить страну</h2>
+        <form id="deleteForm">
+            <label for="deleteId">ID страны для удаления:</label>
+            <input type="number" id="deleteId" name="id" required>
+            <button type="submit">Удалить</button>
+        </form>
+    </div>
+
+    <!-- Список стран -->
+    <div>
+        <h2>Список стран</h2>
+        <table id="countriesTable" border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody id="countriesTableBody">
+                <!-- Данные будут загружаться здесь -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/CUDs/scripts/CUDCountry.js"></script>
+</body>
+</html>
