@@ -6,8 +6,18 @@ using System.Threading.Tasks;
 
 namespace Tours.Models.DTOs;
 
-public class HotelServicesDTO
+public class ServicesWithoudIdDTO
+{
+    public string Type { get; set; } = string.Empty;
+}
+
+public class ServicesDTO : ServicesWithoudIdDTO
 {
     public int Id { get; set; }
-    public string Type { get; set; } = string.Empty;
+}
+
+public class HotelServiceDTO
+{
+    public int HotelId { get; set; }
+    public int ServiceId { get; set; }
 }

@@ -8,7 +8,7 @@ namespace MyORMLibrary
 {
     public interface IORMContext
     {
-        int Create<T>(T entity, string tableName) where T : class;
+        void Create<T>(T entity, string tableName) where T : class;
         T? ReadById<T>(int id, string tableName) where T : class;
         List<T> ReadByAll<T>(string tableName) where T : class;
     }

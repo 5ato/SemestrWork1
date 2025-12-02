@@ -20,6 +20,8 @@ public class ListTours : EndpointBase
     {
         var data = new ToursDAO();
 
+        Console.WriteLine("asdas");
+
         return Page("index.html", new { HotTours = data.GetAllHotTours() });
     }
 

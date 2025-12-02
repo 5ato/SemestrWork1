@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36616.10 d17.14
+VisualStudioVersion = 17.14.36616.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tours", "Tours\Tours.csproj", "{B2E7DC38-1FC7-4D74-8B4E-8856265C8303}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTemplateEngine", "MiniTemplateEngine\MiniTemplateEngine.csproj", "{56124751-6483-3C9D-EF92-4F40748FF79E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyORMLibrary", "MyORMLibrary\MyORMLibrary.csproj", "{72778F50-1ACF-E5B4-1949-F0888CC49EB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyORMLibraryUnitTest", "MyORMLibraryUnitTest\MyORMLibraryUnitTest.csproj", "{B5611B71-2D6B-B97D-7363-15D52031EA12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniTemplateEngineUnitTest", "MiniTemplateEngineUnitTest\MiniTemplateEngineUnitTest.csproj", "{A46F9177-8A19-5764-3686-8706EE4557D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{72778F50-1ACF-E5B4-1949-F0888CC49EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72778F50-1ACF-E5B4-1949-F0888CC49EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72778F50-1ACF-E5B4-1949-F0888CC49EB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5611B71-2D6B-B97D-7363-15D52031EA12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5611B71-2D6B-B97D-7363-15D52031EA12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5611B71-2D6B-B97D-7363-15D52031EA12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5611B71-2D6B-B97D-7363-15D52031EA12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A46F9177-8A19-5764-3686-8706EE4557D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A46F9177-8A19-5764-3686-8706EE4557D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A46F9177-8A19-5764-3686-8706EE4557D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A46F9177-8A19-5764-3686-8706EE4557D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

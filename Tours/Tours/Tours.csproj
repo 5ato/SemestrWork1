@@ -21,7 +21,7 @@
 
 
     <ItemGroup>
-	    <Content Include="Pages\**">
+	    <Content Include="Pages\**\*">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
 	    <Content Include="settings.json">

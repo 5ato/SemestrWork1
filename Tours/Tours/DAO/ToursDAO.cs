@@ -22,6 +22,34 @@ public class ToursDAO : HasFactory
         if (filter.SelectedNutritions != -1)
             nutritionSql = $"and h.NutritionId = {filter.SelectedNutritions}";
 
+        var servicesSql = "";
+        if (filter.Services != null && filter.Services.Length > 0)
+        {
+            var serviceJoins = new List<string>();
+
+            var beaches = filter.Services.Where(s => s.TableName == "Beaches").Select(s => s.Id).ToList();
+            if (beaches.Count > 0)
+                serviceJoins.Add($"inner join HotelBeach hb on h.Id = hb.HotelId and hb.ServiceId in ({string.Join(", ", beaches)})");
+
+            var territories = filter.Services.Where(s => s.TableName == "Territories").Select(s => s.Id).ToList();
+            if (territories.Count > 0)
+                serviceJoins.Add($"inner join HotelTerritory ht on h.Id = ht.HotelId and ht.ServiceId in ({string.Join(", ", territories)})");
+
+            var freeServices = filter.Services.Where(s => s.TableName == "FreeServices").Select(s => s.Id).ToList();
+            if (freeServices.Count > 0)
+                serviceJoins.Add($"inner join HotelFreeService hfs on h.Id = hfs.HotelId and hfs.ServiceId in ({string.Join(", ", freeServices)})");
+
+            var paidServices = filter.Services.Where(s => s.TableName == "PaidServices").Select(s => s.Id).ToList();
+            if (paidServices.Count > 0)
+                serviceJoins.Add($"inner join HotelPaidService hps on h.Id = hps.HotelId and hps.ServiceId in ({string.Join(", ", paidServices)})");
+
+            var inRooms = filter.Services.Where(s => s.TableName == "InRooms").Select(s => s.Id).ToList();
+            if (inRooms.Count > 0)
+                serviceJoins.Add($"inner join HotelInRoom hir on h.Id = hir.HotelId and hir.ServiceId in ({string.Join(", ", inRooms)})");
+
+            servicesSql = string.Join("\n", serviceJoins);
+        }
+
         string query = $"""
             select t.Id, t.Price, 
             c.Name as "CityName",
@@ -37,6 +65,7 @@ public class ToursDAO : HasFactory
              ROW_NUMBER() over (partition by HotelId order by Id) as rn
              from HotelPhotos
             ) as hp on h.Id = hp.HotelId and hp.rn = 1
+            {servicesSql}
             where 
             t.RussiaCityId = {filter.CityId} and t.AdultCount = {filter.CountAdults} and
             t.ChildCount = {filter.CountChildren} and h.CountStars = {filter.CountStars} and
@@ -45,7 +74,16 @@ public class ToursDAO : HasFactory
             h.HotelTypeId in ({string.Join(", ", filter.SelectedTypes)})
             """;
 
-        return orm.ExecuteQueryMultiple<TourFilteredDTO>(query);
+        var data = orm.ExecuteQueryMultiple<TourFilteredDTO>(query);
+
+        List<TourFilteredDTO> result = new();
+        foreach(TourFilteredDTO dto in data)
+        {
+            dto.ImagePath ??= "images/noImage.jpg";
+            result.Add(dto);
+        }
+
+        return data;
     }
 
     public IEnumerable<HotToursDTO> GetAllHotTours()
@@ -94,6 +132,7 @@ public class ToursDAO : HasFactory
             inner join Nutritions as n on n.Id = h.NutritionId
             where t.Id = {id}
             """;
+
 
         return orm.ExecuteQuerySingle<TourDTO>(query);
     }

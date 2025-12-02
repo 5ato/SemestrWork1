@@ -76,6 +76,59 @@ create table Users (
     IsAdmin bool default FALSE
 );
 
+create table FreeServices (
+    Id int generated always as identity primary key,
+    Type varchar(100) not null
+);
+
+create table Beaches (
+    Id int generated always as identity primary key,
+    Type varchar(100) not null
+);
+
+create table PaidServices (
+    Id int generated always as identity primary key,
+    Type varchar(100) not null
+);
+
+create table Territories (
+    Id int generated always as identity primary key,
+    Type varchar(100) not null
+);
+
+create table InRooms (
+    Id int generated always as identity primary key,
+    Type varchar(100) not null
+);
+
+
+create table HotelBeach (
+    HotelId int references Hotels (Id),
+    BeachId int references Beaches (Id)
+);
+
+create table HotelFreeService (
+    HotelId int references Hotels (Id),
+    FreeServiceId int references FreeServices (Id)
+);
+
+create table HotelInRoom (
+    HotelId int references Hotels (Id),
+    InRoomId int references InRooms (Id)
+);
+
+create table HotelPaidService (
+    HotelId int references Hotels (Id),
+    PaidServiceId int references PaidServices (Id)
+);
+
+create table HotelTerritory (
+    HotelId int references Hotels (Id),
+    TerritoryId int references Territories (Id)
+);
+
+
+
 insert into Countries (Name) values
 ('Турция'), ('Египет'), ('Китай'), ('Армения'), ('Абхазия'), ('Таиланд'), ('ОАЭ'), ('Вьетнам'),
 ('Индонезия'), ('Шри-Ланка');

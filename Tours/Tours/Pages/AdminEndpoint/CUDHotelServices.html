@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Управление сервисами отелей</title>
+</head>
+<body>
+    <h1>Управление сервисами отелей</h1>
+
+    <!-- Выбор типа сервиса -->
+    <div>
+        <h2>Выберите тип сервиса</h2>
+        <select id="serviceType" onchange="loadServices()">
+            <option value="">Выберите тип сервиса</option>
+            <option value="FreeServices">Бесплатные услуги</option>
+            <option value="Beaches">Пляжи</option>
+            <option value="PaidServices">Платные услуги</option>
+            <option value="Territories">Территории</option>
+            <option value="InRooms">В номере</option>
+        </select>
+    </div>
+
+    <!-- Форма для управления сервисами -->
+    <div id="servicesSection" style="display: none;">
+        <h2 id="sectionTitle">Управление сервисами</h2>
+
+        <!-- Форма для создания сервиса -->
+        <div>
+            <h3>Добавить сервис</h3>
+            <form id="createForm">
+                <label for="serviceName">Название сервиса:</label>
+                <input type="text" id="serviceName" name="name" required maxlength="100">
+                <button type="submit">Создать</button>
+            </form>
+        </div>
+
+        <!-- Форма для редактирования сервиса -->
+        <div>
+            <h3>Редактировать сервис</h3>
+            <form id="editForm">
+                <label for="editId">ID сервиса:</label>
+                <input type="number" id="editId" name="id" required>
+
+                <label for="editName">Новое название:</label>
+                <input type="text" id="editName" name="name" required maxlength="100">
+
+                <button type="submit">Обновить</button>
+            </form>
+        </div>
+
+        <!-- Форма для удаления сервиса -->
+        <div>
+            <h3>Удалить сервис</h3>
+            <form id="deleteForm">
+                <label for="deleteId">ID сервиса для удаления:</label>
+                <input type="number" id="deleteId" name="id" required>
+                <button type="submit">Удалить</button>
+            </form>
+        </div>
+
+        <!-- Список сервисов -->
+        <div>
+            <h3>Список сервисов</h3>
+            <table id="servicesTable" border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Название</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="servicesTableBody">
+                    <!-- Данные будут загружаться здесь -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Раздел для связывания сервисов с отелями -->
+    <div id="hotelLinksSection" style="display: none;">
+        <h2>Связывание с отелями</h2>
+
+        <!-- Форма для добавления связи -->
+        <div>
+            <h3>Добавить связь с отелем</h3>
+            <form id="addLinkForm">
+                <label for="hotelId">Отель:</label>
+                <select id="hotelId" name="hotelId" required>
+                    <option value="">Выберите отель</option>
+                </select>
+
+                <label for="serviceIdForLink">Сервис:</label>
+                <select id="serviceIdForLink" name="serviceId" required>
+                    <option value="">Выберите сервис</option>
+                </select>
+
+                <button type="submit">Добавить связь</button>
+            </form>
+        </div>
+
+        <!-- Форма для удаления связи -->
+        <div>
+            <h3>Удалить связь с отелем</h3>
+            <form id="removeLinkForm">
+                <label for="removeHotelId">ID отеля:</label>
+                <input type="number" id="removeHotelId" name="hotelId" required>
+
+                <label for="removeServiceId">ID сервиса:</label>
+                <input type="number" id="removeServiceId" name="serviceId" required>
+
+                <button type="submit">Удалить связь</button>
+            </form>
+        </div>
+
+        <!-- Список связей -->
+        <div>
+            <h3>Текущие связи</h3>
+            <table id="linksTable" border="1">
+                <thead>
+                    <tr>
+                        <th>ID отеля</th>
+                        <th>Название отеля</th>
+                        <th>ID сервиса</th>
+                        <th>Название сервиса</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="linksTableBody">
+                    <!-- Данные будут загружаться здесь -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/CUDs/scripts/CUDHotelServices.js"></script>
+</body>
+</html>

@@ -14,7 +14,7 @@ public class ORMContext : IORMContext
         _connectionFactory = connectionFactory;
     }
 
-    public int Create<T>(T entity, string tableName) where T : class
+    public void Create<T>(T entity, string tableName) where T : class
     {
         using var connection = _connectionFactory.CreateConnection();
         connection.Open();
@@ -26,7 +26,7 @@ public class ORMContext : IORMContext
         var parameterNames = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
         var command = connection.CreateCommand();
-        command.CommandText = $"INSERT INTO {tableName} ({columnNames}) VALUES ({parameterNames}) RETURNING Id";
+        command.CommandText = $"INSERT INTO {tableName} ({columnNames}) VALUES ({parameterNames})";
 
         foreach (var property in properties)
         {
@@ -36,8 +36,7 @@ public class ORMContext : IORMContext
             command.Parameters.Add(parameter);
         }
 
-        var result = command.ExecuteScalar();
-        return Convert.ToInt32(result);
+        command.ExecuteNonQuery();
     }
 
     public T? ReadById<T>(int id, string tableName) where T : class
@@ -348,13 +347,43 @@ public class ORMContext : IORMContext
 
         var newExp = Expression.New(typeT);
         List<MemberBinding> bindings = [];
+
         for (int i = 0; i < reader.FieldCount; i++)
         {
             var nameColumn = reader.GetName(i);
             var valueColumn = reader.GetValue(i);
 
-            if (properties.TryGetValue(nameColumn, out var value))
-                bindings.Add(Expression.Bind(value, Expression.Constant(valueColumn)));
+            if (properties.TryGetValue(nameColumn, out var propertyInfo))
+            {
+                Expression valueExpression;
+
+                if (Convert.IsDBNull(valueColumn))
+                {
+                    // Для nullable типов и ссылочных типов
+                    if (propertyInfo.PropertyType.IsValueType &&
+                        Nullable.GetUnderlyingType(propertyInfo.PropertyType) == null)
+                    {
+                        // Для non-nullable value types используем default значение
+                        valueExpression = Expression.Constant(
+                            Activator.CreateInstance(propertyInfo.PropertyType),
+                            propertyInfo.PropertyType
+                        );
+                    }
+                    else
+                    {
+                        // Для nullable типов и ссылочных типов используем null
+                        valueExpression = Expression.Constant(null, propertyInfo.PropertyType);
+                    }
+                }
+                else
+                {
+                    // Приводим значение к правильному типу
+                    var convertedValue = Convert.ChangeType(valueColumn, propertyInfo.PropertyType);
+                    valueExpression = Expression.Constant(convertedValue, propertyInfo.PropertyType);
+                }
+
+                bindings.Add(Expression.Bind(propertyInfo, valueExpression));
+            }
         }
 
         var memberInit = Expression.MemberInit(newExp, bindings);

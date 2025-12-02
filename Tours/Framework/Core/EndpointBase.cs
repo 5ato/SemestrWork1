@@ -30,5 +30,7 @@ namespace MiniHttpServer.Framework.Core
             => new ErrorResult();
 
         protected OkResult Ok() => new OkResult();
+
+        protected NotFounded NotFounded() => new NotFounded();
     }
 }

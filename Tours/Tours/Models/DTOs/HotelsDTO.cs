@@ -18,6 +18,7 @@ public class HotelsWithoudIdDTO
     public int CountStars { get; set; }
     public int CityId { get; set; }
     public int HotelTypeId { get; set; }
+    public string Description { get; set; } = string.Empty;
 }
 
 public class HotelsDTO : HotelsWithoudIdDTO

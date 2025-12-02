@@ -66,54 +66,63 @@ namespace MiniHttpServer.Framework.Core.Handlers
             var methodParameters = method.GetParameters();
             List<object> methodArgs = [];
 
-            // Обрабатываем body в зависимости от Content-Type
-            if (request.HasEntityBody)
+            try
             {
-                using StreamReader reader = new(request.InputStream, request.ContentEncoding);
 
-                if (contentType.Contains("application/json"))
+                // Обрабатываем body в зависимости от Content-Type
+                if (request.HasEntityBody)
                 {
-                    // Обработка JSON
-                    methodArgs = await ProcessJsonBody(reader, methodParameters, cancellationToken);
-                }
-                else if (contentType.Contains("application/x-www-form-urlencoded") ||
-                         contentType.Contains("multipart/form-data"))
-                {
-                    // Обработка form-data
-                    methodArgs = await ProcessFormDataBody(reader, methodParameters, contentType, cancellationToken);
+                    using StreamReader reader = new(request.InputStream, request.ContentEncoding);
+
+                    if (contentType.Contains("application/json"))
+                    {
+                        // Обработка JSON
+                        methodArgs = await ProcessJsonBody(reader, methodParameters, cancellationToken);
+                    }
+                    else if (contentType.Contains("application/x-www-form-urlencoded") ||
+                                contentType.Contains("multipart/form-data"))
+                    {
+                        // Обработка form-data
+                        methodArgs = await ProcessFormDataBody(reader, methodParameters, contentType, cancellationToken);
+                    }
+                    else
+                    {
+                        // По умолчанию обрабатываем как form-data
+                        methodArgs = await ProcessFormDataBody(reader, methodParameters, contentType, cancellationToken);
+                    }
                 }
                 else
                 {
-                    // По умолчанию обрабатываем как form-data
-                    methodArgs = await ProcessFormDataBody(reader, methodParameters, contentType, cancellationToken);
+                    // Если body нет, создаем пустой список аргументов
+                    methodArgs = new List<object>();
+                }
+
+                // Добавляем query-параметры для недостающих аргументов
+                var queryParameters = request.QueryString;
+                for (int i = methodArgs.Count; i < methodParameters.Length; i++)
+                {
+                    var param = methodParameters[i];
+                    var value = queryParameters[param.Name];
+
+                    if (value != null)
+                    {
+                        var convertedValue = ConvertParameter(value, param.ParameterType);
+                        methodArgs.Add(convertedValue);
+                    }
+                    else if (param.HasDefaultValue)
+                    {
+                        methodArgs.Add(param.DefaultValue);
+                    }
+                    else
+                    {
+                        throw new ArgumentException($"Отсутствует значение для параметра: {param.Name}");
+                    }
                 }
             }
-            else
+            catch (Exception)
             {
-                // Если body нет, создаем пустой список аргументов
-                methodArgs = new List<object>();
-            }
-
-            // Добавляем query-параметры для недостающих аргументов
-            var queryParameters = request.QueryString;
-            for (int i = methodArgs.Count; i < methodParameters.Length; i++)
-            {
-                var param = methodParameters[i];
-                var value = queryParameters[param.Name];
-
-                if (value != null)
-                {
-                    var convertedValue = ConvertParameter(value, param.ParameterType);
-                    methodArgs.Add(convertedValue);
-                }
-                else if (param.HasDefaultValue)
-                {
-                    methodArgs.Add(param.DefaultValue);
-                }
-                else
-                {
-                    throw new ArgumentException($"Отсутствует значение для параметра: {param.Name}");
-                }
+                await WriteResponseAsync(context, new NotFounded().Execute(context), cancellationToken);
+                return;
             }
 
             // Проверяем, что все параметры заполнены
@@ -146,6 +155,11 @@ namespace MiniHttpServer.Framework.Core.Handlers
             {
                 await WriteResponseContentAsync(context, error.Execute(context), cancellationToken);
             }
+            else if (ret is NotFounded notFounded)
+            {
+                await WriteResponseAsync(context, notFounded.Execute(context), cancellationToken);
+            }
+            else
 
             if (ret == null)
             {

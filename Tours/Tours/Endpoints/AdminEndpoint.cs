@@ -5,6 +5,7 @@ using MyORMLibrary;
 using System.Net;
 using Tours.DAO;
 using Tours.Models.DTOs;
+using Tours.Services;
 
 
 namespace Tours.Endpoints;
@@ -12,6 +13,27 @@ namespace Tours.Endpoints;
 [Endpoint]
 public class AdminEndpoint : EndpointBase
 {
+    private bool IsAdminUser()
+    {
+        Cookie? cookie = Context.Request.Cookies["session_id"];
+
+        if (cookie == null) return false;
+
+        var email = cookie.Value;
+        var dao = new UserDAO();
+        var user = dao.GetUserByFilter(u => u.Email == email);
+
+        return user?.IsAdmin == true;
+    }
+
+    private IHttpResult AdminPageOrRedirect(string pageName)
+    {
+        return IsAdminUser()
+            ? Page(pageName, new { })
+            : Redirect("/ListTours");
+    }
+
+
     [HttpGet("login")]
     public IHttpResult LoginIndex()
     {
@@ -33,24 +55,7 @@ public class AdminEndpoint : EndpointBase
         Cookie? cookie = Context.Request.Cookies["session_id"];
         if (cookie == null)
         {
-            // Создаем куки
-            Cookie sessionCookie = new Cookie("session_id", user.Email)
-            {
-                Expires = DateTime.Now.AddDays(1),
-                Path = "/"
-            };
-
-            Cookie userCookie = new Cookie("username", user.Username)
-            {
-                Expires = DateTime.Now.AddHours(2),
-                Path = "/"
-            };
-
-            var response = Context.Response;
-
-            // Добавляем куки в ответ
-            response.Cookies.Add(sessionCookie);
-            response.Cookies.Add(userCookie);
+            AuthService.CreateAuthCookies(user.Email, user.Username, Context);
         }
 
         if (user.IsAdmin)
@@ -95,198 +100,38 @@ public class AdminEndpoint : EndpointBase
         Cookie? cookie = Context.Request.Cookies["session_id"];
         if (cookie == null)
         {
-            // Создаем куки
-            Cookie sessionCookie = new Cookie("session_id", userDTO.Email)
-            {
-                Expires = DateTime.Now.AddDays(1),
-                Path = "/"
-            };
-
-            Cookie userCookie = new Cookie("username", userDTO.Username)
-            {
-                Expires = DateTime.Now.AddHours(2),
-                Path = "/"
-            };
-
-            var response = Context.Response;
-
-            // Добавляем куки в ответ
-            response.Cookies.Add(sessionCookie);
-            response.Cookies.Add(userCookie);
+            AuthService.CreateAuthCookies(userDTO.Email, userDTO.Username, Context);
         }
 
-        if (userDTO.IsAdmin)
-            return Redirect("/AdminEndpoint/AdminPanel");
-
-        return Redirect("/ListTours");
+        return userDTO.IsAdmin
+            ? Redirect("AdminEndpoint/AdminPanel")
+            : Redirect("/ListTours");
     }
 
     [HttpGet("AdminPanel")]
-    public IHttpResult GetAdminPanel()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("panel.html", new { });
-
-        return Redirect("/ListTours");
-    }
-
+    public IHttpResult GetAdminPanel() => AdminPageOrRedirect("panel.html");
+ 
     [HttpGet("AdminCUDHotel")]
-    public IHttpResult CUDHotel()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDHotel.html", new { });
-
-        return Redirect("/ListTours");
-    }
+    public IHttpResult CUDHotel() => AdminPageOrRedirect("CUDHotel.html");
 
     [HttpGet("AdminCUDTour")]
-    public IHttpResult CUDTour()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDTour.html", new { });
-
-        return Redirect("/ListTours");
-    }
+    public IHttpResult CUDTour() => AdminPageOrRedirect("CUDTour.html");
 
     [HttpGet("AdminCUDNutrition")]
-    public IHttpResult CUDNutrition()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDNutrition.html", new { });
-
-        return Redirect("/ListTours");
-    }
+    public IHttpResult CUDNutrition() => AdminPageOrRedirect("CUDNutrition.html");
 
     [HttpGet("AdminCUDRussiaCity")]
-    public IHttpResult CUDRussiaCity()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDRussiaCity.html", new { });
-
-        return Redirect("/ListTours");
-    }
-
+    public IHttpResult CUDRussiaCity() => AdminPageOrRedirect("CUDRussiaCity.html");
 
     [HttpGet("AdminCUDCountry")]
-    public IHttpResult CUDCountry()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDCountry.html", new { });
-
-        return Redirect("/ListTours");
-    }
+    public IHttpResult CUDCountry() => AdminPageOrRedirect("CUDCountry.html");
 
     [HttpGet("AdminCUDCity")]
-    public IHttpResult CUDCity()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
-
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDCity.html", new { });
-
-        return Redirect("/ListTours");
-    }
+    public IHttpResult CUDCity() => AdminPageOrRedirect("CUDCity.html");
 
     [HttpGet("AdminCUDHotelType")]
-    public IHttpResult CUDHotelType()
-    {
-        Cookie? cookie = Context.Request.Cookies["session_id"];
+    public IHttpResult CUDHotelType() => AdminPageOrRedirect("CUDHotelType.html");
 
-        if (cookie == null)
-            return Redirect("/AdminEndpoint/login");
-
-        var email = cookie.Value;
-        var dao = new UserDAO();
-        var user = dao.GetUserByFilter(u => u.Email == email);
-
-        if (user == null)
-            return Redirect("/ListTours");
-
-        if (user.IsAdmin)
-            return Page("CUDHotelType.html", new { });
-
-        return Redirect("/ListTours");
-    }
+    [HttpGet("AdminCUDHotelServices")]
+    public IHttpResult CUDHotelServices() => AdminPageOrRedirect("CUDHotelServices.html");
 }

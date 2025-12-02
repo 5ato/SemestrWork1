@@ -13,6 +13,7 @@ namespace MiniHttpServer.Framework.Core.Handlers
         public override async Task HandleRequest(HttpListenerContext context, CancellationToken cancellationToken)
         {
             context.Response.StatusCode = 404;
+            context.Response.ContentType = "text/html; charset=utf-8";
             await WriteResponseAsync(context, "public/404.html", cancellationToken);
         }
     }
