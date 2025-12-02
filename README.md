@@ -7,7 +7,7 @@
 
 ### 1. У вас должен быть установлен docker, postgres и .net9.0
 
-#### 1.1 Строка подключения: "Host=postgres;Port=5432;Database=Tours;Username=postgres;Password=aboba".
+#### 1.1 Строка подключения: "Host=postgres;Port=5432;Database=ваша_базаданных;Username=ваш_пользователь;Password=ваш_пароль.
 
 Host=postgres потому что в docker-compose сервис называется postgres
 
