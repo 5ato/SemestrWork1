@@ -1,11 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
-WORKDIR /src
+WORKDIR /Tours
 
 # Копируем solution файл и восстанавливаем зависимости
 COPY ["Tours/Tours.sln", "."]
 COPY ["Tours/Framework/MiniHttpServer.Framework.csproj", "Framework/"]
 COPY ["Tours/MiniTemplateEngine/MiniTemplateEngine.csproj", "MiniTemplateEngine/"]
+COPY ["Tours/MiniTemplateEngineUnitTest/MiniTemplateEngineUnitTest.csproj", "MiniTemplateEngineUnitTest/"]
 COPY ["Tours/MyORMLibrary/MyORMLibrary.csproj", "MyORMLibrary/"]
+COPY ["Tours/MyORMLibraryUnitTest/MyORMLibraryUnitTest.csproj", "MyORMLibraryUnitTest/"]
 COPY ["Tours/Tours/Tours.csproj", "Tours/"]
 
 RUN dotnet restore "Tours.sln" --verbosity detailed
