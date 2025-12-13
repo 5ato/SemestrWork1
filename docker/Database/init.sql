@@ -1,5 +1,3 @@
-create database Tours;
-
 create table Countries (
     Id int generated always as identity primary key,
     Name varchar(100) unique
