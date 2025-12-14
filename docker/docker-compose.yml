@@ -5,9 +5,9 @@ services:
     image: postgres:17
     container_name: myapp-postgres
     environment:
-      POSTGRES_DB: Tours
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: aboba
+      POSTGRES_DB: oris
+      POSTGRES_USER: developer
+      POSTGRES_PASSWORD: developer
     ports:
       - "5432:5432"
     volumes:
